@@ -3,17 +3,17 @@ import 'package:actual/common/provider/pagination_provider.dart';
 import 'package:actual/restaurant/model/restaurant_model.dart';
 import 'package:actual/restaurant/repository/restaurant_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:collection/collection.dart';
 
 final restaurantDetailProvider =
     Provider.family<RestaurantModel?, String>((ref, id) {
   final state = ref.watch(restaurantProvider);
 
-  // if (state is! CursorPagination<RestaurantModel>) {
   if (state is! CursorPagination) {
     return null;
   }
 
-  return state.data.firstWhere((element) => element.id == id);
+  return state.data.firstWhereOrNull((element) => element.id == id);
 });
 
 final restaurantProvider =
@@ -51,6 +51,15 @@ class RestaurantStateNotifier
     final pState = state as CursorPagination;
 
     final resp = await repository.getRestaurantDetail(id: id);
+
+    // 데이터가 없을때는 그냥 캐시의 끝에다 데이터를 추가한다.
+    if (pState.data.where((e) => e.id == id).isEmpty) {
+      state = pState.copyWith(data: <RestaurantModel>[
+        ...pState.data,
+        resp,
+      ]);
+      return;
+    }
 
     state = pState.copyWith(
       data: pState.data
