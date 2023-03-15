@@ -1,6 +1,4 @@
 import 'package:actual/common/provider/go_router.dart';
-import 'package:actual/common/view/splash_screen.dart';
-import 'package:actual/user/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
