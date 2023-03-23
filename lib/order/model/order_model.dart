@@ -14,7 +14,7 @@ class OrderProductModel {
     fromJson: DataUtils.pathToUrl,
   )
   final String imgUrl;
-  final String price;
+  final int price;
 
   OrderProductModel({
     required this.id,

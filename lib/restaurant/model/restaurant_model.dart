@@ -1,5 +1,6 @@
 import 'package:actual/common/const/data.dart';
 import 'package:actual/common/model/model_with_id.dart';
+import 'package:actual/common/utils/data_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant_model.g.dart';
